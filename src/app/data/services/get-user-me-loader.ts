@@ -39,7 +39,6 @@ export async function getUserMeLoader() {
             error: null
         }
     } catch (error) {
-        console.log(error);
         return { 
             ok: false, 
             data: null, 

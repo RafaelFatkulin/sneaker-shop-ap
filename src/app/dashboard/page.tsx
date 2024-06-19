@@ -2,7 +2,7 @@ import { LogoutButton } from "@/components/logout-button";
 
 export default function DashboardRoute() {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="flex flex-col items-center justify-center">
         <h1>Dashboard</h1>
         <LogoutButton />
       </div>

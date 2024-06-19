@@ -3,7 +3,6 @@ import { getUserMeLoader } from "./app/data/services/get-user-me-loader";
 
 export async function middleware(request: NextRequest) {
     const user = await getUserMeLoader();
-    console.log(user);
     
     const currentPath = request.nextUrl.pathname;
     

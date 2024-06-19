@@ -50,10 +50,6 @@ export async function signIn(prevState: any, formData: FormData) {
         };
       }
 
-      console.log(responseData.token)
-
-      
-
       cookies().set('jwt', responseData.token, config)
       redirect('/dashboard')
 }

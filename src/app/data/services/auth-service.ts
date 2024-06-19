@@ -17,7 +17,6 @@ export async function signinUserService({ email, password }: SigninUserProps) {
             cache: 'no-cache'
         });
         const responseJson = await response.json()
-        console.log(responseJson)
 
         return responseJson;
     } catch (error) {
