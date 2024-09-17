@@ -15,6 +15,8 @@ import { signIn } from "@/app/data/actions/auth-actions";
 import { useFormState } from "react-dom";
 import { ZodErrors } from "./ui/zod-errors";
 import { SubmitButton } from "./ui/submit-button";
+import { useEffect } from "react";
+import { toast } from "@/hooks/use-toast";
 
 const INITIAL_STATE = {
   data: null,
@@ -24,6 +26,17 @@ const INITIAL_STATE = {
 
 export default function SigninForm() {
   const [formState, formAction] = useFormState(signIn, INITIAL_STATE);
+
+  useEffect(() => {
+    console.log(formState);
+
+    if (formState.message) {
+      toast({
+        title: "Ошибка",
+        description: formState.message,
+      });
+    }
+  }, [formState]);
 
   return (
     <div className="w-full max-w-md">
@@ -44,7 +57,9 @@ export default function SigninForm() {
                 type="text"
                 placeholder="username or email"
               />
-              <ZodErrors error={formState?.errors?.email} />
+              {formState.error?.email?.length > 0 && (
+                <ZodErrors error={formState.error?.email} />
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
@@ -54,16 +69,25 @@ export default function SigninForm() {
                 type="password"
                 placeholder="password"
               />
-              <ZodErrors error={formState?.errors?.password} />
+              {formState.error?.password?.length > 0 && (
+                <ZodErrors error={formState.error?.password} />
+              )}
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <SubmitButton className="w-full" text="Sign In" loadingText="Loading" />
+            <SubmitButton
+              className="w-full"
+              text="Sign In"
+              loadingText="Loading"
+            />
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">
-          Don't have an account?
-          <Link className="underline ml-2" href="/signup">
+          Don&apos;t have an account?
+          <Link
+            className="underline ml-2"
+            href="/signup"
+          >
             Sign Up
           </Link>
         </div>

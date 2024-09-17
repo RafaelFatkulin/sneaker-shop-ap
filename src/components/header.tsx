@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { getUserMeLoader } from "@/app/data/services/get-user-me-loader";
 import { LogoutButton } from "./logout-button";
+import { HeaderDashboardLink } from "./header-dashboard-link";
 
 interface HeaderProps {
   data: {
@@ -19,7 +20,7 @@ interface HeaderProps {
 }
 
 interface AuthUserProps {
-  username: string;
+  name: string;
   email: string;
 }
 
@@ -34,7 +35,7 @@ export function LoggedInUser({
         href="/dashboard/account"
         className="font-semibold hover:text-primary"
       >
-        {userData.username}
+        {userData.name}
       </Link>
       <LogoutButton />
     </div>
@@ -47,16 +48,24 @@ export async function Header() {
   return (
     <header className="py-4">
       <div className="container mx-auto flex flex-row items-center justify-between">
-        <Link className="text-2xl font-bold" href="/">
+        <Link
+          className="text-2xl font-bold"
+          href="/"
+        >
           Sneaker Shop
         </Link>
+
+        {user.ok ? <HeaderDashboardLink /> : ""}
 
         <div className="flex items-center gap-4">
           {user.ok ? (
             <LoggedInUser userData={user.data} />
           ) : (
             <Button asChild>
-              <Link className="text-lg" href='/signin'>
+              <Link
+                className="text-lg"
+                href="/signin"
+              >
                 SignIn
               </Link>
             </Button>
